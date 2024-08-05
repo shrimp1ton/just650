@@ -1,0 +1,172 @@
+/* Apply Lekton font globally */
+body {
+  font-family: Lekton, Arial, sans-serif; /* Use Lekton as the primary font */
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* Textarea styling */
+textarea {
+  width: calc(100% - 40px); /* Adjust width for margin */
+  height: 200px;
+  margin: 0 20px; /* Add margin to both sides */
+  box-sizing: border-box; /* Ensure padding is included in width/height */
+  margin-top: 50px;
+  border-radius: 15px;
+  margin-right: 10px;
+}
+
+/* Container styling */
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 50px; /* Adjust height as needed */
+  background-color: #f1f1f1;
+}
+
+/* Button styling */
+button {
+  background-color: #fff;
+  border: 1px solid black;
+  color: black;
+  padding: 15px; /* Adjust padding as needed */
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  flex: 1;
+  width: 50%;
+  margin: 0;
+  font-family: Lekton;
+}
+
+button:hover {
+  background-color: #000000; /* change to your desired color */
+  color: white; /* change to your desired color */
+}
+
+/* Select dropdown styling */
+select {
+  margin-bottom: 20px;
+}
+
+/* Header styling */
+header {
+  background-color: #ffffff;
+  padding: 5px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Submit essay button styling */
+.subessay-button {
+  background-color: rgb(0, 176, 38);
+  border: 1px solid rgb(248, 227, 227);
+  color: black;
+  padding: 10px; /* Adjust padding as needed */
+  font-size: 16px;
+  cursor: pointer;
+  width: 150px;
+  border-radius: 10px;
+  margin-left: 20px;
+}
+
+/* Author name input styling */
+.author-name-input {
+  padding: 10px; /* Padding inside the textbox */
+  margin-top: 10px; /* Margin above the textbox */
+  border: 2px solid #ccc; /* Border color */
+  border-radius: 4px; /* Rounded corners */
+  font-size: 16px; /* Font size */
+  box-sizing: border-box; /* Include padding and border in width calculation */
+  color: gray; /* Initial text color */
+  transition: border-color 0.3s ease; /* Smooth transition for border color */
+  width: calc(100% - 40px); /* Adjust width for margin */
+  margin: 20px; /* Add margin to both sides */
+  font-family: Lekton;
+}
+
+/* Input wrapper styling */
+.input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* Author name input focus styling */
+.author-name-input:focus {
+  border-color: black;
+  outline: none;
+}
+
+/* Placeholder text styling */
+.placeholder-text {
+  position: absolute;
+  top: 50%;
+  left: 30px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 16px;
+  color: #aaa;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.placeholder-text i {
+  font-style: italic;
+}
+
+/* Hidden class styling */
+.hidden {
+  display: none;
+}
+
+/* Header typing effect styling */
+#animated-header {
+  border-right: 2px solid #333; /* Creates the blinking cursor */
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@keyframes blink {
+  0%, 100% {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #333;
+  }
+}
+
+#animated-header::after {
+  content: "";
+  animation: blink 0.7s step-end infinite;
+}
+
+/* Title input styling */
+.title-input {
+  width: calc(100% - 40px); /* Adjust for container padding/margin */
+  padding: 10px;
+  margin: 20px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+  font-family: Lekton;
+  margin-top: 30px;
+}
+
+/* Essay input styling */
+.essay-input {
+  width: calc(100% - 40px);
+  height: 200px;
+  margin: 0 20px;
+  box-sizing: border-box;
+  padding: 10px;
+  border-radius: 15px;
+  border: 2px solid #ccc;
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
