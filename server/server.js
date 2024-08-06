@@ -7,10 +7,16 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
+// Import the reply routes
+const replyRoutes = require('./routes/replies');
+
 const app = express();
 
 // Use CORS middleware
 app.use(cors());
+
+// Use JSON middleware to parse JSON request bodies
+app.use(express.json());
 
 // Connect to MongoDB using environment variable
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -27,7 +33,8 @@ const Essay = mongoose.model('Essay', {
   likes: Number
 });
 
-app.use(express.json());
+// Use the reply routes
+app.use('/api/replies', replyRoutes);
 
 // POST endpoint to create a new essay
 app.post('/api/essays', async (req, res) => {
