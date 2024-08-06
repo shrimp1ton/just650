@@ -8,10 +8,12 @@ export const useEssays = () => useContext(EssayContext);
 export const EssayProvider = ({ children }) => {
   const [essays, setEssays] = useState([]);
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL; // Access the environment variable
+
   useEffect(() => {
     const fetchEssays = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/essays');
+        const response = await fetch(`${API_BASE_URL}/essays`); // Use the base URL from the environment variable
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -23,11 +25,11 @@ export const EssayProvider = ({ children }) => {
     };
 
     fetchEssays();
-  }, []);
+  }, [API_BASE_URL]);
 
   const addEssay = async (newEssay) => {
     try {
-      const response = await fetch('http://localhost:3000/api/essays', {
+      const response = await fetch(`${API_BASE_URL}/essays`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -46,7 +48,7 @@ export const EssayProvider = ({ children }) => {
 
   const likeEssay = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/essays/${id}/like`, {
+      const response = await fetch(`${API_BASE_URL}/essays/${id}/like`, {
         method: 'PUT',
       });
       if (!response.ok) {
