@@ -1,4 +1,3 @@
-// src/context/EssayContext.js
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const EssayContext = createContext();
@@ -15,7 +14,8 @@ export const EssayProvider = ({ children }) => {
       try {
         const response = await fetch(`${API_BASE_URL}/essays`); // Use the base URL from the environment variable
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          const errorDetails = await response.text();
+          throw new Error(`Network response was not ok: ${response.statusText}. Details: ${errorDetails}`);
         }
         const data = await response.json();
         setEssays(data);
@@ -37,7 +37,8 @@ export const EssayProvider = ({ children }) => {
         body: JSON.stringify(newEssay),
       });
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        const errorDetails = await response.text();
+        throw new Error(`Network response was not ok: ${response.statusText}. Details: ${errorDetails}`);
       }
       const data = await response.json();
       setEssays((prevEssays) => [...prevEssays, data]);
@@ -52,7 +53,8 @@ export const EssayProvider = ({ children }) => {
         method: 'PUT',
       });
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        const errorDetails = await response.text();
+        throw new Error(`Network response was not ok: ${response.statusText}. Details: ${errorDetails}`);
       }
       const updatedEssay = await response.json();
       setEssays((prevEssays) =>
