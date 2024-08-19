@@ -1,48 +1,31 @@
-// routes/replies.js
-const express = require('express');
-const router = express.Router();
-const Reply = require('../models/Reply');
+const mongoose = require('mongoose');
+const Reply = require('../models/reply');
 
-// POST a new reply
-router.post('/', async (req, res) => {
-  const { essayId, content, authorName } = req.body;
-  
-  const reply = new Reply({
-    essayId,
-    content,
-    authorName: authorName || 'Anonymous',
-  });
 
-  try {
-    const savedReply = await reply.save();
-    res.status(201).json(savedReply);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-});
+// Ensure connection only happens once in a serverless environment
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
-// GET replies for a specific essay
-router.get('/:essayId', async (req, res) => {
-  try {
-    const replies = await Reply.find({ essayId: req.params.essayId }).sort({ timestamp: 1 });
-    res.json(replies);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
 
-// Optional: DELETE a reply
-router.delete('/:id', async (req, res) => {
-  try {
-    const reply = await Reply.findById(req.params.id);
-    if (!reply) {
-      return res.status(404).json({ message: 'Reply not found' });
-    }
-    await reply.remove();
-    res.json({ message: 'Reply deleted' });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
+module.exports = async (req, res) => {
+ if (req.method === 'POST') {
+   const reply = new Reply({
+     essayId: req.body.essayId,
+     content: req.body.content,
+     authorName: req.body.authorName || 'Anonymous',
+     timestamp: new Date(),
+   });
 
-module.exports = router;
+
+   await reply.save();
+   return res.status(201).json(reply);
+ }
+
+
+ if (req.method === 'GET') {
+   const replies = await Reply.find({ essayId: req.query.essayId });
+   return res.status(200).json(replies);
+ }
+
+
+ return res.status(405).end(); // Method Not Allowed
+};

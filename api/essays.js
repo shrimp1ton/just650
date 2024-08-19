@@ -1,31 +1,28 @@
-const express = require('express');
-const router = express.Router();
-const Essay = require('../models/Essay');
+const mongoose = require('mongoose');
+const Essay = require('../models/essay');
 
-// POST a new essay
-router.post('/', async (req, res) => {
-  const { title, content, isAnonymous, authorName } = req.body;
+// Ensure connection only happens once in serverless environment
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
-  // Check if title and content are provided
-  if (!title || !content) {
-    return res.status(400).json({ message: 'Title and content are required' });
-  }
-
-  try {
-    // Create a new essay with the title
-    const newEssay = new Essay({
-      title,
-      content,
-      isAnonymous,
-      authorName: authorName || 'Anonymous',
+module.exports = async (req, res) => {
+  if (req.method === 'POST') {
+    const essay = new Essay({
+      title: req.body.title,
+      content: req.body.content,
+      isAnonymous: req.body.isAnonymous,
+      authorName: req.body.authorName || 'Anonymous',
+      timestamp: new Date(),
+      likes: 0,
     });
-
-    // Save the essay to the database
-    const savedEssay = await newEssay.save();
-    res.status(201).json(savedEssay);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
+    await essay.save();
+    return res.status(201).json(essay);
   }
-});
 
-module.exports = router;
+  if (req.method === 'GET') {
+    const sortBy = req.query.sortBy === 'mostRecent' ? { timestamp: -1 } : { likes: -1 };
+    const essays = await Essay.find().sort(sortBy);
+    return res.status(200).json(essays);
+  }
+
+  return res.status(405).end(); // Method Not Allowed
+};

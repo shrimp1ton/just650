@@ -5,10 +5,11 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-}
-
-/* Textarea styling */
-textarea {
+ }
+ 
+ 
+ /* Textarea styling */
+ textarea {
   width: calc(100% - 40px); /* Adjust width for margin */
   height: 200px;
   margin: 0 20px; /* Add margin to both sides */
@@ -16,19 +17,21 @@ textarea {
   margin-top: 50px;
   border-radius: 15px;
   margin-right: 10px;
-}
-
-/* Container styling */
-.container {
+ }
+ 
+ 
+ /* Container styling */
+ .container {
   display: flex;
   justify-content: space-between;
   width: 100%;
   height: 50px; /* Adjust height as needed */
   background-color: #f1f1f1;
-}
-
-/* Button styling */
-button {
+ }
+ 
+ 
+ /* Button styling */
+ button {
   background-color: #fff;
   border: 1px solid black;
   color: black;
@@ -41,28 +44,32 @@ button {
   width: 50%;
   margin: 0;
   font-family: Lekton;
-}
-
-button:hover {
+ }
+ 
+ 
+ button:hover {
   background-color: #000000; /* change to your desired color */
   color: white; /* change to your desired color */
-}
-
-/* Select dropdown styling */
-select {
+ }
+ 
+ 
+ /* Select dropdown styling */
+ select {
   margin-bottom: 20px;
-}
-
-/* Header styling */
-header {
+ }
+ 
+ 
+ /* Header styling */
+ header {
   background-color: #ffffff;
   padding: 5px;
   text-align: center;
   border-bottom: 1px solid #ddd;
-}
-
-/* Submit essay button styling */
-.subessay-button {
+ }
+ 
+ 
+ /* Submit essay button styling */
+ .subessay-button {
   background-color: rgb(0, 176, 38);
   border: 1px solid rgb(248, 227, 227);
   color: black;
@@ -72,10 +79,11 @@ header {
   width: 150px;
   border-radius: 10px;
   margin-left: 20px;
-}
-
-/* Author name input styling */
-.author-name-input {
+ }
+ 
+ 
+ /* Author name input styling */
+ .author-name-input {
   padding: 10px; /* Padding inside the textbox */
   margin-top: 10px; /* Margin above the textbox */
   border: 2px solid #ccc; /* Border color */
@@ -87,22 +95,25 @@ header {
   width: calc(100% - 40px); /* Adjust width for margin */
   margin: 20px; /* Add margin to both sides */
   font-family: Lekton;
-}
-
-/* Input wrapper styling */
-.input-wrapper {
+ }
+ 
+ 
+ /* Input wrapper styling */
+ .input-wrapper {
   position: relative;
   width: 100%;
-}
-
-/* Author name input focus styling */
-.author-name-input:focus {
+ }
+ 
+ 
+ /* Author name input focus styling */
+ .author-name-input:focus {
   border-color: black;
   outline: none;
-}
-
-/* Placeholder text styling */
-.placeholder-text {
+ }
+ 
+ 
+ /* Placeholder text styling */
+ .placeholder-text {
   position: absolute;
   top: 50%;
   left: 30px;
@@ -113,40 +124,46 @@ header {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.placeholder-text i {
+ }
+ 
+ 
+ .placeholder-text i {
   font-style: italic;
-}
-
-/* Hidden class styling */
-.hidden {
+ }
+ 
+ 
+ /* Hidden class styling */
+ .hidden {
   display: none;
-}
-
-/* Header typing effect styling */
-#animated-header {
+ }
+ 
+ 
+ /* Header typing effect styling */
+ #animated-header {
   border-right: 2px solid #333; /* Creates the blinking cursor */
   white-space: nowrap;
   overflow: hidden;
-}
-
-@keyframes blink {
+ }
+ 
+ 
+ @keyframes blink {
   0%, 100% {
     border-color: transparent;
   }
   50% {
     border-color: #333;
   }
-}
-
-#animated-header::after {
+ }
+ 
+ 
+ #animated-header::after {
   content: "";
   animation: blink 0.7s step-end infinite;
-}
-
-/* Title input styling */
-.title-input {
+ }
+ 
+ 
+ /* Title input styling */
+ .title-input {
   width: calc(100% - 40px); /* Adjust for container padding/margin */
   padding: 10px;
   margin: 20px;
@@ -156,10 +173,11 @@ header {
   box-sizing: border-box;
   font-family: Lekton;
   margin-top: 30px;
-}
-
-/* Essay input styling */
-.essay-input {
+ }
+ 
+ 
+ /* Essay input styling */
+ .essay-input {
   width: calc(100% - 40px);
   height: 200px;
   margin: 0 20px;
@@ -169,43 +187,62 @@ header {
   border: 2px solid #ccc;
   margin-bottom: 20px;
   margin-top: 30px;
-}
-
-/* Add this to your existing CSS file or styles for the component */
-
-.submit-page {
+ }
+ 
+ 
+ /* Intro screen styles */
+ .intro-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000; /* Black background */
+  color: #fff; /* White text color */
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  padding: 20px;
-  margin-top: 50px;
-}
-
-.author-name-input {
-  width: calc(100% - 40px);
-  padding: 10px;
-  margin: 10px 0;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-}
-
-.subessay-button {
-  background-color: rgb(0, 176, 38);
-  border: 1px solid rgb(248, 227, 227);
-  color: black;
-  padding: 10px;
-  font-size: 16px;
-  cursor: pointer;
-  width: 150px;
-  border-radius: 10px;
-}
-
-.grass-design {
-  width: 100%;
-  height: 100px; /* Adjust the height as needed */
-  background-image: url('/just650/grass-image.png'); /* Use an actual path to your grass image */
-  background-size: cover;
-  margin-top: 20px;
-}
+  align-items: center;
+  font-family: 'Lekton', monospace;
+  font-size: 4rem; /* Adjust size as needed */
+  z-index: 1000;
+  transition: opacity 1s ease;
+ }
+ 
+ 
+ .intro-text {
+  margin-bottom: 20px;
+ }
+ 
+ 
+ .loading-bar {
+  width: 50%;
+  height: 5px;
+  background-color: #444;
+  overflow: hidden;
+ }
+ 
+ 
+ .loading-fill {
+  height: 100%;
+  background-color: rgb(41, 192, 11);
+  width: 0;
+  animation: load 2s linear forwards;
+ }
+ 
+ 
+ @keyframes load {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+ }
+ 
+ 
+ .intro-container.fade-out {
+  opacity: 0;
+  pointer-events: none;
+ }
+ 
