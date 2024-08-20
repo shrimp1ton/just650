@@ -256,55 +256,6 @@ body {
 
 /* src/styles.css */
 
-.login-popup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  padding: 30px;
-  width: 400px; /* Increase width to accommodate buttons and text */
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  text-align: center; /* Center text and buttons */
-  border-radius: 8px; /* Add slight rounding for better aesthetics */
-}
-
-.login-popup h2 {
-  margin-bottom: 20px;
-  font-size: 24px;
-  color: #333;
-}
-
-.login-popup button {
-  background-color: #1aa924;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  margin-bottom: 15px;
-  cursor: pointer;
-  font-size: 16px;
-  width: 100%; /* Make button full width to ensure text fits */
-  border-radius: 4px; /* Add slight rounding to match the popup */
-  transition: background-color 0.3s ease;
-}
-
-.login-popup button:hover {
-  background-color: #1d77af;
-}
-
-.login-popup .register-button {
-  background-color: #f1c40f;
-  margin-top: 10px; /* Separate the buttons slightly */
-}
-
-.login-popup button:focus {
-  outline: none;
-}
-
-
-/* src/styles.css */
-
 /* Profile Section in Header */
 .profile-section {
   display: flex;
@@ -324,9 +275,6 @@ body {
   color: #333;
 }
 
-/* src/styles.css */
-
-/* src/styles.css */
 
 .register-page {
   display: flex;
@@ -400,4 +348,142 @@ body {
   outline: none;
 }
 
- 
+ /* src/styles.css */
+
+.google-button {
+  background-color: #4285F4;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  width: auto; /* Adjust button width to fit its content */
+  display: inline-block; /* Make it inline-block to prevent stretching */
+}
+
+.google-button:hover {
+  background-color: #357ae8;
+}
+
+.google-button:focus {
+  outline: none;
+}
+
+/* Common page styling for both login and register */
+.login-page, .register-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+  background-color: #f9f9f9;
+  padding: 20px;
+  padding-top: 10vh;
+}
+
+.login-page h2, .register-page h2 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.login-page form, .register-page form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  align-items: center; /* Center-align the form content */
+}
+
+.login-page input, .register-page input {
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: calc(100% - 22px); /* Adjusting to account for padding */
+}
+
+.login-page label, .register-page label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.login-page .error-message, .register-page .error-message {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.login-page button, .register-page button {
+  background-color: #4285F4;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  align-self: flex-end;
+  width: fit-content;
+}
+
+.login-page button:hover, .register-page button:hover {
+  background-color: #357ae8;
+}
+
+.login-page button:focus, .register-page button:focus {
+  outline: none;
+}
+
+/* login pop up */
+
+.login-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 30px;
+  width: 300px; /* Adjusted width for a visible box */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.login-popup h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.popup-button {
+  background-color: #4285F4;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  width: 80%; /* Smaller width for buttons */
+  text-align: center;
+}
+
+.popup-button:hover {
+  background-color: #357ae8;
+}
+
+.popup-button:focus {
+  outline: none;
+}

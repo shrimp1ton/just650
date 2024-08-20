@@ -4,10 +4,11 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import SubmitTab from './components/SubmitTab';
 import ReadTab from './components/ReadTab';
 import Intro from './components/Intro';
-import Login from './components/Login';
-import Register from './components/Register'; // Import the Register component
+import LoginPopup from './components/Login'; // Updated to LoginPopup
+import LoginPage from './components/LoginPage'; // New LoginPage component
+import RegisterPage from './components/RegisterPage'; // New RegisterPage component
 import { EssayProvider } from './context/EssayContext';
-import { AuthProvider, useAuth } from './context/AuthContext'; // Import Auth context
+import { AuthProvider, useAuth } from './context/AuthContext';
 
 function AppContent() {
   const [activeTab, setActiveTab] = useState('submit');
@@ -63,7 +64,7 @@ function AppContent() {
 
       {showLoginPopup && (
         <div className="login-popup">
-          <Login />
+          <LoginPopup />
         </div>
       )}
     </div>
@@ -77,7 +78,8 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<AppContent />} />
-            <Route path="/register" element={<Register />} /> {/* Add route for the registration page */}
+            <Route path="/login" element={<LoginPage />} /> {/* New Login page route */}
+            <Route path="/register" element={<RegisterPage />} /> {/* New Register page route */}
           </Routes>
         </Router>
       </EssayProvider>
@@ -86,3 +88,4 @@ function App() {
 }
 
 export default App;
+

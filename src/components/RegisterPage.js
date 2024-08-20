@@ -1,15 +1,24 @@
-// src/components/Register.js
+// src/components/RegisterPage.js
 import React, { useState } from 'react';
-import { auth } from '../firebase';
-import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
-import '../styles.css'; // Ensure this is imported to apply styles
+import { auth, googleProvider } from '../firebase';
+import { createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup } from 'firebase/auth';
+import '../styles.css';
 
-const Register = () => {
+const RegisterPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
+
+  const handleGoogleSignUp = async () => {
+    try {
+      await signInWithPopup(auth, googleProvider);
+      alert('Google Sign-up successful!');
+    } catch (err) {
+      setError('Google Sign-up failed: ' + err.message);
+    }
+  };
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -34,9 +43,12 @@ const Register = () => {
   };
 
   return (
-    <div className="register-page">
+    <div className="auth-page">
       <h2>Register</h2>
       {error && <p className="error-message">{error}</p>}
+      <button className="google-button" onClick={handleGoogleSignUp}>
+        Sign Up with Google
+      </button>
       <form onSubmit={handleRegister}>
         <input
           type="email"
@@ -73,4 +85,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default RegisterPage;
