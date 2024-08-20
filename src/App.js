@@ -5,6 +5,7 @@ import SubmitTab from './components/SubmitTab';
 import ReadTab from './components/ReadTab';
 import Intro from './components/Intro';
 import Login from './components/Login';
+import Register from './components/Register'; // Import the Register component
 import { EssayProvider } from './context/EssayContext';
 import { AuthProvider, useAuth } from './context/AuthContext'; // Import Auth context
 
@@ -76,6 +77,7 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<AppContent />} />
+            <Route path="/register" element={<Register />} /> {/* Add route for the registration page */}
           </Routes>
         </Router>
       </EssayProvider>

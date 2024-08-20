@@ -324,6 +324,80 @@ body {
   color: #333;
 }
 
+/* src/styles.css */
 
- 
+/* src/styles.css */
+
+.register-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+  background-color: #f9f9f9;
+  padding: 20px;
+  padding-top: 10vh;
+}
+
+.register-page h2 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.register-page form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.register-page input {
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: calc(100% - 22px);
+}
+
+.register-page label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.register-page .error-message {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.register-page button {
+  background-color: #4285F4;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  align-self: flex-end;
+  width: fit-content;
+}
+
+.register-page button:hover {
+  background-color: #357ae8;
+}
+
+.register-page button:focus {
+  outline: none;
+}
+
  
