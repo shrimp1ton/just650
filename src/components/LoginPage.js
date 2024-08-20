@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { auth, googleProvider } from '../firebase';
 import { signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 import '../styles.css';
 
 const LoginPage = () => {
@@ -9,11 +10,12 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
+  const navigate = useNavigate(); // Hook to navigate to different routes
 
   const handleGoogleLogin = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
-      alert('Google Sign-in successful!');
+      navigate('/'); // Redirect to the main page after successful login
     } catch (err) {
       setError('Google Sign-in failed: ' + err.message);
     }
@@ -25,7 +27,7 @@ const LoginPage = () => {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      alert('Login successful!');
+      navigate('/'); // Redirect to the main page after successful login
     } catch (err) {
       setError(err.message);
     }

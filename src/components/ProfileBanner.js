@@ -21,9 +21,9 @@ const ProfileBanner = ({ user }) => {
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
       >
         <img
-          src="/profile-placeholder.png" // Placeholder image for profile picture
-          alt="Profile"
-          className="profile-pic"
+            src={require('../assets/Default_pfp.jpg').default} // Adjusted image path
+            alt="Profile"
+            className="profile-pic"
         />
         <span>Hi, {user.displayName || 'User'}</span>
       </div>
