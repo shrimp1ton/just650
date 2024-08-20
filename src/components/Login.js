@@ -8,7 +8,7 @@ const Login = () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       console.log('User info:', result.user);
-      // Handle user data, possibly redirect or store tokens
+      // Handle the logged-in user data here (e.g., store it in context or local storage)
     } catch (error) {
       console.error('Error logging in with Google:', error);
     }

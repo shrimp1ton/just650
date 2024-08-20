@@ -30,7 +30,7 @@ function AppContent() {
       {showIntro ? (
         <Intro onAnimationEnd={handleAnimationEnd} />
       ) : (
-        <div className={`App-content ${isBlurred ? 'blurred' : ''}`}>
+        <>
           <header className="header">
             <nav>
               <button
@@ -53,8 +53,10 @@ function AppContent() {
               </button>
             </nav>
           </header>
-          {activeTab === 'submit' ? <SubmitTab onClick={handleUserInteraction} /> : <ReadTab />}
-        </div>
+          <div className={`App-content ${isBlurred ? 'blurred' : ''}`}>
+            {activeTab === 'submit' ? <SubmitTab onClick={handleUserInteraction} /> : <ReadTab />}
+          </div>
+        </>
       )}
 
       {showLoginPopup && (
