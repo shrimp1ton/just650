@@ -521,35 +521,6 @@ body {
   margin-bottom: 15px;
 }
 
-/* src/styles.css */
-
-/* src/styles.css */
-
-.google-button {
-  background-color: #4285F4;
-  color: white;
-  border: none;
-  padding: 5px 10px; /* Further reduced padding */
-  font-size: 14px; /* Keep the reduced font size */
-  line-height: 1.2; /* Adjust line height to reduce the height */
-  border-radius: 5px;
-  cursor: pointer;
-  margin-bottom: 20px;
-  width: 80%; /* Keep the button smaller and center-aligned */
-  max-width: 300px; /* Set a maximum width for the button */
-  display: block; /* Ensure the button is block-level for centering */
-  margin: 0 auto 20px; /* Center the button and add bottom margin */
-}
-
-.google-button:hover {
-  background-color: #357ae8;
-}
-
-.google-button:focus {
-  outline: none;
-}
-
-
 
 .login-button {
   background-color: #1aa924;
@@ -640,12 +611,6 @@ body {
 .profile-dropdown button:focus {
   outline: none;
 }
-
-/*profile page*/
-/* src/styles.css */
-
-/* Profile Page Styling */
-/* src/styles.css */
 
 /* Profile Page Styling */
 .profile-page {
@@ -780,4 +745,65 @@ body {
   margin-left: 10px; /* Adjust this value to align with your textboxes */
   font-size: 24px;
   font-weight: bold;
+}
+
+/* src/styles.css */
+
+.auth-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.auth-page h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.google-button,
+.login-button {
+  background-color: #4285F4;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  max-width: 300px; /* Set a consistent max-width */
+  height: 50px; /* Set a consistent height */
+  border-radius: 4px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.google-button:hover,
+.login-button:hover {
+  background-color: #357ae8;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 300px; /* Ensure form is the same width as the buttons */
+}
+
+.login-form input {
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.show-password {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
 }

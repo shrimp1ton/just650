@@ -1,7 +1,6 @@
-// src/components/RegisterPage.js
 import React, { useState } from 'react';
-import { auth } from '../firebase';
-import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from 'firebase/auth';
+import { auth, googleProvider } from '../firebase';
+import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification, signInWithPopup } from 'firebase/auth';
 import '../styles.css';
 
 const RegisterPage = () => {
@@ -38,10 +37,30 @@ const RegisterPage = () => {
     }
   };
 
+  const handleGoogleSignUp = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      
+      // You can update the user's profile with their name from Google here, if needed
+      await updateProfile(user, {
+        displayName: user.displayName || firstName,
+      });
+
+      alert('Registration successful with Google!');
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   return (
     <div className="auth-page">
       <h2>Register</h2>
       {error && <p className="error-message">{error}</p>}
+      <button onClick={handleGoogleSignUp} className="google-button">
+        Sign Up with Google
+      </button>
+      <p>or</p>
       <form onSubmit={handleRegister}>
         <input
           type="text"

@@ -1,4 +1,3 @@
-// src/components/LoginPage.js
 import React, { useState } from 'react';
 import { auth, googleProvider } from '../firebase';
 import { signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
@@ -40,7 +39,7 @@ const LoginPage = () => {
       <button className="google-button" onClick={handleGoogleLogin}>
         Sign In with Google
       </button>
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleLogin} className="login-form">
         <input
           type="email"
           value={email}
@@ -55,7 +54,7 @@ const LoginPage = () => {
           placeholder="Password"
           required
         />
-        <label>
+        <label className="show-password">
           <input
             type="checkbox"
             checked={showPassword}
