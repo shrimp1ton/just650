@@ -254,16 +254,54 @@ body {
   filter: blur(5px);
 }
 
+/* src/styles.css */
+
 .login-popup {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  padding: 20px;
+  padding: 30px;
+  width: 400px; /* Increase width to accommodate buttons and text */
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
+  text-align: center; /* Center text and buttons */
+  border-radius: 8px; /* Add slight rounding for better aesthetics */
 }
+
+.login-popup h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.login-popup button {
+  background-color: #1aa924;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%; /* Make button full width to ensure text fits */
+  border-radius: 4px; /* Add slight rounding to match the popup */
+  transition: background-color 0.3s ease;
+}
+
+.login-popup button:hover {
+  background-color: #1d77af;
+}
+
+.login-popup .register-button {
+  background-color: #f1c40f;
+  margin-top: 10px; /* Separate the buttons slightly */
+}
+
+.login-popup button:focus {
+  outline: none;
+}
+
 
 /* src/styles.css */
 
@@ -286,24 +324,6 @@ body {
   color: #333;
 }
 
- /* src/styles.css */
-
-/* Additional button styles for Register */
-.register-button {
-  margin-top: 20px;
-  background-color: #f1c40f;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 16px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.register-button:hover {
-  background-color: #d4ac0d;
-}
 
  
  
