@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import '../styles.css'; // Ensure your styles are imported
+import profilePic from '../assets/Default_pfp.jpg'; // Import the image
 
 const ProfileBanner = ({ user }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -21,9 +22,9 @@ const ProfileBanner = ({ user }) => {
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
       >
         <img
-            src={require('../assets/Default_pfp.jpg').default} // Adjusted image path
-            alt="Profile"
-            className="profile-pic"
+          src={profilePic} // Use the imported image
+          alt="Profile"
+          className="profile-pic"
         />
         <span>Hi, {user.displayName || 'User'}</span>
       </div>

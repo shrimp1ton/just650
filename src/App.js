@@ -5,11 +5,12 @@ import SubmitTab from './components/SubmitTab';
 import ReadTab from './components/ReadTab';
 import Intro from './components/Intro';
 import LoginPopup from './components/Login';
-import LoginPage from './components/LoginPage';
-import RegisterPage from './components/RegisterPage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 import { EssayProvider } from './context/EssayContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import ProfileBanner from './components/ProfileBanner'; // Import the ProfileBanner component
+import ProfilePage from './pages/ProfilePage';
 
 function AppContent() {
   const [activeTab, setActiveTab] = useState('submit');
@@ -90,6 +91,7 @@ function App() {
             <Route path="/" element={<AppContent />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/profile" element={<ProfilePage />} /> 
           </Routes>
         </Router>
       </EssayProvider>

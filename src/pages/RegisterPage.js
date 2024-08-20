@@ -1,24 +1,17 @@
 // src/components/RegisterPage.js
 import React, { useState } from 'react';
-import { auth, googleProvider } from '../firebase';
-import { createUserWithEmailAndPassword, sendEmailVerification, signInWithPopup } from 'firebase/auth';
+import { auth } from '../firebase';
+import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from 'firebase/auth';
 import '../styles.css';
 
 const RegisterPage = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
-
-  const handleGoogleSignUp = async () => {
-    try {
-      await signInWithPopup(auth, googleProvider);
-      alert('Google Sign-up successful!');
-    } catch (err) {
-      setError('Google Sign-up failed: ' + err.message);
-    }
-  };
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -32,8 +25,11 @@ const RegisterPage = () => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      
-      // Send email verification
+
+      await updateProfile(user, {
+        displayName: firstName,
+      });
+
       await sendEmailVerification(user);
       alert('Registration successful! Please check your email for verification.');
       
@@ -46,10 +42,21 @@ const RegisterPage = () => {
     <div className="auth-page">
       <h2>Register</h2>
       {error && <p className="error-message">{error}</p>}
-      <button className="google-button" onClick={handleGoogleSignUp}>
-        Sign Up with Google
-      </button>
       <form onSubmit={handleRegister}>
+        <input
+          type="text"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          placeholder="First Name"
+          required
+        />
+        <input
+          type="text"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+          placeholder="Last Name"
+          required
+        />
         <input
           type="email"
           value={email}
@@ -79,7 +86,9 @@ const RegisterPage = () => {
           />
           Show Password
         </label>
-        <button type="submit">Register</button>
+        <button type="submit" className="register-button">
+          Register
+        </button>
       </form>
     </div>
   );

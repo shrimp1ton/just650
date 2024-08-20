@@ -640,3 +640,135 @@ body {
 .profile-dropdown button:focus {
   outline: none;
 }
+
+/*profile page*/
+/* src/styles.css */
+
+/* Profile Page Styling */
+/* src/styles.css */
+
+/* Profile Page Styling */
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
+  background-color: #f9f9f9;
+  height: 100vh;
+}
+
+.profile-page h2 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.profile-details {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-pic-section {
+  position: relative;
+}
+
+.profile-pic-large {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-right: 20px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.profile-pic-section:hover .profile-pic-large {
+  opacity: 0.7;
+}
+
+.profile-pic-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 120px;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.profile-name-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.profile-name-input {
+  font-size: 24px;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  padding: 5px;
+  margin-bottom: 10px;
+  background: transparent;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.profile-name-input:focus {
+  border-color: #1aa924;
+  outline: none;
+}
+
+.profile-name-input:hover {
+  border-color: #1aa924;
+}
+
+.update-name-button {
+  background-color: #1aa924;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.update-name-button:hover {
+  background-color: #198f1c;
+}
+
+.password-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+}
+
+.password-form input {
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.update-button {
+  background-color: #1aa924;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.update-button:hover {
+  background-color: #198f1c;
+}
+
+.update-button:focus {
+  outline: none;
+}
