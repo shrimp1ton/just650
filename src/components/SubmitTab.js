@@ -5,7 +5,7 @@ import { useEssays } from '../context/EssayContext';
 import { useAuth } from '../context/AuthContext';
 import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
 
-function SubmitTab() {
+function SubmitTab({ triggerLogin }) { // Receive triggerLogin as a prop
   const [title, setTitle] = useState(''); // State for the title
   const [essay, setEssay] = useState(''); // State for the essay content
   const [authorName, setAuthorName] = useState(''); // State for the author's name
@@ -38,6 +38,12 @@ function SubmitTab() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Check if the user is logged in
+    if (!user) {
+      triggerLogin(); // Trigger the login/register popup
+      return;
+    }
 
     // Validate input fields
     if (!title.trim()) {

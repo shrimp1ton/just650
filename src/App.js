@@ -1,33 +1,26 @@
-import React, { useState, useEffect } from 'react';
+// src/App.js
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import SubmitTab from './components/SubmitTab';
 import ReadTab from './components/ReadTab';
 import Intro from './components/Intro';
-import LoginPopup from './components/Login';
-import ProfileBanner from './components/ProfileBanner';
+import Login from './components/Login';
 import { EssayProvider } from './context/EssayContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
+import ProfileBanner from './components/ProfileBanner';
 
 function AppContent() {
   const [activeTab, setActiveTab] = useState('submit');
-  const [showIntro, setShowIntro] = useState(false);
+  const [showIntro, setShowIntro] = useState(true);
   const [isBlurred, setIsBlurred] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   const { user } = useAuth();
 
-  useEffect(() => {
-    const introShown = localStorage.getItem('introShown');
-    if (!introShown && !user) {
-      setShowIntro(true);
-    }
-  }, [user]);
-
   const handleAnimationEnd = () => {
     setShowIntro(false);
-    localStorage.setItem('introShown', 'true');
   };
 
   const handleUserInteraction = () => {
@@ -44,8 +37,8 @@ function AppContent() {
       ) : (
         <>
           <header className="header">
+            {user && <ProfileBanner user={user} />}
             <nav>
-              {user && <ProfileBanner user={user} />}
               <button
                 className={`button ${activeTab === 'submit' ? 'active' : ''}`}
                 onClick={() => {
@@ -67,14 +60,18 @@ function AppContent() {
             </nav>
           </header>
           <div className={`App-content ${isBlurred ? 'blurred' : ''}`}>
-            {activeTab === 'submit' ? <SubmitTab onClick={handleUserInteraction} /> : <ReadTab />}
+            {activeTab === 'submit' ? (
+              <SubmitTab triggerLogin={handleUserInteraction} />
+            ) : (
+              <ReadTab />
+            )}
           </div>
         </>
       )}
 
       {showLoginPopup && (
         <div className="login-popup">
-          <LoginPopup />
+          <Login />
         </div>
       )}
     </div>
