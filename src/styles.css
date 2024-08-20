@@ -33,7 +33,7 @@ body {
  /* Button styling */
  button {
   background-color: #fff;
-  border: 1px solid black;
+  border: 0px solid black;
   color: black;
   padding: 15px; /* Adjust padding as needed */
   text-align: center;
@@ -245,4 +245,38 @@ body {
   opacity: 0;
   pointer-events: none;
  }
- 
+
+/* src/styles.css */
+.App-content {
+  transition: filter 0.3s ease-in-out;
+}
+
+.App-content.blurred {
+  filter: blur(5px);
+}
+
+.login-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.header {
+  background-color: white;
+  padding: 10px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  z-index: 10; /* Ensure the header is on top of the content */
+}
+
+
+
+.button.active {
+  font-weight: bold;
+}
+
+

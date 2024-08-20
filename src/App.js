@@ -10,43 +10,57 @@ import { AuthProvider, useAuth } from './context/AuthContext'; // Import Auth co
 function AppContent() {
   const [activeTab, setActiveTab] = useState('submit');
   const [showIntro, setShowIntro] = useState(true); // State to control the intro screen
+  const [isBlurred, setIsBlurred] = useState(false); // State to control the blur effect
+  const [showLoginPopup, setShowLoginPopup] = useState(false); // State to show/hide login popup
   const { user } = useAuth(); // Get the authenticated user from the Auth context
 
   const handleAnimationEnd = () => {
-    const introElement = document.querySelector('.intro-container');
-    introElement.classList.add('fade-out');
-
-    setTimeout(() => {
-      setShowIntro(false); // Hide the intro screen after the fade-out
-    }, 1000); // Allow time for the fade-out transition
+    setShowIntro(false); // Hide the intro screen after animation ends
   };
 
-  if (!user) {
-    return <Login />; // Show the login screen if the user is not authenticated
-  }
+  const handleUserInteraction = () => {
+    if (!user) {
+      setIsBlurred(true); // Apply blur if the user is not logged in
+      setShowLoginPopup(true); // Show the login popup
+    }
+  };
 
   return (
     <div className="App">
       {showIntro ? (
         <Intro onAnimationEnd={handleAnimationEnd} />
       ) : (
-        <>
-          <nav>
-            <button
-              className={`button ${activeTab === 'submit' ? 'active' : ''}`}
-              onClick={() => setActiveTab('submit')}
-            >
-              SUBMIT
-            </button>
-            <button
-              className={`button ${activeTab === 'read' ? 'active' : ''}`}
-              onClick={() => setActiveTab('read')}
-            >
-              READ
-            </button>
-          </nav>
-          {activeTab === 'submit' ? <SubmitTab /> : <ReadTab />}
-        </>
+        <div className={`App-content ${isBlurred ? 'blurred' : ''}`}>
+          <header className="header">
+            <nav>
+              <button
+                className={`button ${activeTab === 'submit' ? 'active' : ''}`}
+                onClick={() => {
+                  setActiveTab('submit');
+                  handleUserInteraction(); // Check user interaction
+                }}
+              >
+                SUBMIT
+              </button>
+              <button
+                className={`button ${activeTab === 'read' ? 'active' : ''}`}
+                onClick={() => {
+                  setActiveTab('read');
+                  handleUserInteraction(); // Check user interaction
+                }}
+              >
+                READ
+              </button>
+            </nav>
+          </header>
+          {activeTab === 'submit' ? <SubmitTab onClick={handleUserInteraction} /> : <ReadTab />}
+        </div>
+      )}
+
+      {showLoginPopup && (
+        <div className="login-popup">
+          <Login />
+        </div>
       )}
     </div>
   );
