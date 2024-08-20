@@ -61,7 +61,9 @@ const LoginPage = () => {
           />
           Show Password
         </label>
-        <button type="submit">Login</button>
+        <button type="submit" className="login-button">
+          Login
+        </button>
       </form>
     </div>
   );

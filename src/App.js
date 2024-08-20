@@ -1,30 +1,39 @@
 // src/App.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import SubmitTab from './components/SubmitTab';
 import ReadTab from './components/ReadTab';
 import Intro from './components/Intro';
-import LoginPopup from './components/Login'; // Updated to LoginPopup
-import LoginPage from './components/LoginPage'; // New LoginPage component
-import RegisterPage from './components/RegisterPage'; // New RegisterPage component
+import LoginPopup from './components/Login';
+import LoginPage from './components/LoginPage';
+import RegisterPage from './components/RegisterPage';
 import { EssayProvider } from './context/EssayContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import ProfileBanner from './components/ProfileBanner'; // Import the ProfileBanner component
 
 function AppContent() {
   const [activeTab, setActiveTab] = useState('submit');
-  const [showIntro, setShowIntro] = useState(true); // State to control the intro screen
-  const [isBlurred, setIsBlurred] = useState(false); // State to control the blur effect
-  const [showLoginPopup, setShowLoginPopup] = useState(false); // State to show/hide login popup
-  const { user } = useAuth(); // Get the authenticated user from the Auth context
+  const [showIntro, setShowIntro] = useState(true);
+  const [isBlurred, setIsBlurred] = useState(false);
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
+  const { user } = useAuth();
+
+  useEffect(() => {
+    const introShown = localStorage.getItem('introShown');
+    if (introShown) {
+      setShowIntro(false);
+    }
+  }, []);
 
   const handleAnimationEnd = () => {
-    setShowIntro(false); // Hide the intro screen after animation ends
+    setShowIntro(false);
+    localStorage.setItem('introShown', 'true');
   };
 
   const handleUserInteraction = () => {
     if (!user) {
-      setIsBlurred(true); // Apply blur if the user is not logged in
-      setShowLoginPopup(true); // Show the login popup
+      setIsBlurred(true);
+      setShowLoginPopup(true);
     }
   };
 
@@ -36,11 +45,12 @@ function AppContent() {
         <>
           <header className="header">
             <nav>
+              {user && <ProfileBanner user={user} />}
               <button
                 className={`button ${activeTab === 'submit' ? 'active' : ''}`}
                 onClick={() => {
                   setActiveTab('submit');
-                  handleUserInteraction(); // Check user interaction
+                  handleUserInteraction();
                 }}
               >
                 SUBMIT
@@ -49,7 +59,7 @@ function AppContent() {
                 className={`button ${activeTab === 'read' ? 'active' : ''}`}
                 onClick={() => {
                   setActiveTab('read');
-                  handleUserInteraction(); // Check user interaction
+                  handleUserInteraction();
                 }}
               >
                 READ
@@ -78,8 +88,8 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<AppContent />} />
-            <Route path="/login" element={<LoginPage />} /> {/* New Login page route */}
-            <Route path="/register" element={<RegisterPage />} /> {/* New Register page route */}
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
           </Routes>
         </Router>
       </EssayProvider>
@@ -88,4 +98,3 @@ function App() {
 }
 
 export default App;
-

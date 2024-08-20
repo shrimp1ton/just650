@@ -348,29 +348,6 @@ body {
   outline: none;
 }
 
- /* src/styles.css */
-
-.google-button {
-  background-color: #4285F4;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-bottom: 20px;
-  width: auto; /* Adjust button width to fit its content */
-  display: inline-block; /* Make it inline-block to prevent stretching */
-}
-
-.google-button:hover {
-  background-color: #357ae8;
-}
-
-.google-button:focus {
-  outline: none;
-}
-
 /* Common page styling for both login and register */
 .login-page, .register-page {
   display: flex;
@@ -485,5 +462,172 @@ body {
 }
 
 .popup-button:focus {
+  outline: none;
+}
+
+/* login page.js */
+
+/* src/styles.css */
+
+/* Centering and layout styling for the auth page */
+.auth-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Full height of the viewport */
+  background-color: #f9f9f9;
+  padding: 20px;
+}
+
+.auth-page h2 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.auth-page form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  align-items: center; /* Center-align the form content */
+}
+
+.auth-page input {
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%; /* Full width for better alignment */
+}
+
+.auth-page label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.auth-page .error-message {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+/* src/styles.css */
+
+/* src/styles.css */
+
+.google-button {
+  background-color: #4285F4;
+  color: white;
+  border: none;
+  padding: 5px 10px; /* Further reduced padding */
+  font-size: 14px; /* Keep the reduced font size */
+  line-height: 1.2; /* Adjust line height to reduce the height */
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  width: 80%; /* Keep the button smaller and center-aligned */
+  max-width: 300px; /* Set a maximum width for the button */
+  display: block; /* Ensure the button is block-level for centering */
+  margin: 0 auto 20px; /* Center the button and add bottom margin */
+}
+
+.google-button:hover {
+  background-color: #357ae8;
+}
+
+.google-button:focus {
+  outline: none;
+}
+
+
+
+.login-button {
+  background-color: #1aa924;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%; /* Full width for consistency */
+}
+
+.login-button:hover {
+  background-color: #198f1c;
+}
+
+.login-button:focus {
+  outline: none;
+}
+
+
+/*profile banner */
+
+/* src/styles.css */
+
+.profile-banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+}
+
+.profile-pic {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.profile-info span {
+  font-size: 14px;
+  color: #333;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.profile-dropdown button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+}
+
+.profile-dropdown button:hover {
+  background-color: #f1f1f1;
+}
+
+.profile-dropdown button:focus {
   outline: none;
 }
