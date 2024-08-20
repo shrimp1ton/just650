@@ -1,16 +1,40 @@
 // src/components/SubmitTab.js
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useEssays } from '../context/EssayContext';
+import { useAuth } from '../context/AuthContext';
+import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
 
 function SubmitTab() {
   const [title, setTitle] = useState(''); // State for the title
   const [essay, setEssay] = useState(''); // State for the essay content
   const [authorName, setAuthorName] = useState(''); // State for the author's name
+  const [userEssays, setUserEssays] = useState([]); // State for storing user's essays
   const { addEssay } = useEssays(); // Custom hook to access essay context
+  const { user } = useAuth(); // Access the current authenticated user
 
   // Fetch the API base URL from environment variables
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+  useEffect(() => {
+    const fetchUserEssays = async () => {
+      if (user) {
+        const db = getFirestore();
+        const essaysRef = collection(db, 'essays');
+        const q = query(essaysRef, where('authorId', '==', user.uid));
+        const querySnapshot = await getDocs(q);
+
+        const essays = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          title: doc.data().title,
+        }));
+
+        setUserEssays(essays);
+      }
+    };
+
+    fetchUserEssays();
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,6 +62,7 @@ function SubmitTab() {
           content: essay.trim(),
           isAnonymous: !authorName.trim(),
           authorName: authorName.trim() || 'Anonymous',
+          authorId: user.uid, // Associate the essay with the current user
         }),
       });
 
@@ -50,6 +75,9 @@ function SubmitTab() {
 
       // Use the addEssay function to update the context
       addEssay(newEssay);
+
+      // Add the new essay to the user's essays
+      setUserEssays((prevEssays) => [...prevEssays, newEssay]);
 
       // Reset form fields after submission
       setTitle('');
@@ -89,8 +117,18 @@ function SubmitTab() {
           Submit Essay
         </button>
       </form>
+
       <div className="grass-design"></div> {/* Grass design container */}
-      </div>
+
+      <h2>My Essays</h2>
+      <ul>
+        {userEssays.map((essay) => (
+          <li key={essay.id}>
+            <a href={`/essay/${essay.id}`}>{essay.title}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 

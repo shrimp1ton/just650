@@ -1,5 +1,6 @@
 // src/App.js
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import SubmitTab from './components/SubmitTab';
 import ReadTab from './components/ReadTab';
 import Intro from './components/Intro';
@@ -72,7 +73,11 @@ function App() {
   return (
     <AuthProvider>
       <EssayProvider>
-        <AppContent />
+        <Router>
+          <Routes>
+            <Route path="/" element={<AppContent />} />
+          </Routes>
+        </Router>
       </EssayProvider>
     </AuthProvider>
   );
