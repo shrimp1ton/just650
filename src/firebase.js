@@ -24,3 +24,4 @@ const googleProvider = new GoogleAuthProvider();
 
 // Export the auth and googleProvider
 export { auth, googleProvider };
+//

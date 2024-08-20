@@ -772,3 +772,12 @@ body {
 .update-button:focus {
   outline: none;
 }
+
+
+/* my essays header */
+.my-essays-header {
+  text-align: left; /* Aligns the header text with the content */
+  margin-left: 10px; /* Adjust this value to align with your textboxes */
+  font-size: 24px;
+  font-weight: bold;
+}

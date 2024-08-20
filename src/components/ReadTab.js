@@ -1,4 +1,3 @@
-// src/components/ReadTab.js
 import React, { useState, useEffect } from 'react';
 import { useEssays } from '../context/EssayContext';
 
@@ -8,6 +7,7 @@ function ReadTab() {
   const [replies, setReplies] = useState({});
   const [newReplyContent, setNewReplyContent] = useState({});
   const [replyAuthor, setReplyAuthor] = useState({});
+  const [userLikes, setUserLikes] = useState({});
 
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
@@ -32,7 +32,30 @@ function ReadTab() {
     essays.forEach((essay) => {
       fetchReplies(essay._id);
     });
+
+    // Load user likes from localStorage
+    const storedLikes = localStorage.getItem('userLikes');
+    if (storedLikes) {
+      setUserLikes(JSON.parse(storedLikes));
+    }
   }, [essays, API_BASE_URL]);
+
+  const handleLike = async (essayId) => {
+    if (!userLikes[essayId]) {
+      try {
+        await likeEssay(essayId);
+        setUserLikes((prevLikes) => {
+          const newLikes = { ...prevLikes, [essayId]: true };
+          localStorage.setItem('userLikes', JSON.stringify(newLikes));
+          return newLikes;
+        });
+      } catch (error) {
+        console.error('Error liking essay:', error);
+      }
+    } else {
+      console.log('User has already liked this essay.');
+    }
+  };
 
   const handleReplySubmit = async (essayId) => {
     try {
@@ -77,7 +100,7 @@ function ReadTab() {
           </h2>
           <p>{essay.content}</p>
           <p>By: {essay.isAnonymous ? 'Anonymous' : essay.authorName}</p>
-          <button onClick={() => likeEssay(essay._id)}>
+          <button onClick={() => handleLike(essay._id)}>
             👍 Like ({essay.likes})
           </button>
           <div>

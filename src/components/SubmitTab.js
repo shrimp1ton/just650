@@ -120,7 +120,7 @@ function SubmitTab() {
 
       <div className="grass-design"></div> {/* Grass design container */}
 
-      <h2>My Essays</h2>
+      <h2 className="my-essays-header">My Essays</h2>
       <ul>
         {userEssays.map((essay) => (
           <li key={essay.id}>

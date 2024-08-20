@@ -6,13 +6,14 @@ export const useEssays = () => useContext(EssayContext);
 
 export const EssayProvider = ({ children }) => {
   const [essays, setEssays] = useState([]);
+  const [userLikes, setUserLikes] = useState({}); // Store user likes
 
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL; // Access the environment variable
 
   useEffect(() => {
     const fetchEssays = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/essays`); // Use the base URL from the environment variable
+        const response = await fetch(`${API_BASE_URL}/essays`);
         if (!response.ok) {
           const errorDetails = await response.text();
           throw new Error(`Network response was not ok: ${response.statusText}. Details: ${errorDetails}`);
@@ -24,7 +25,13 @@ export const EssayProvider = ({ children }) => {
       }
     };
 
-    fetchEssays();
+    fetchEssays(); // Fetch essays on component mount
+
+    // Load user likes from localStorage
+    const storedLikes = localStorage.getItem('userLikes');
+    if (storedLikes) {
+      setUserLikes(JSON.parse(storedLikes));
+    }
   }, [API_BASE_URL]);
 
   const addEssay = async (newEssay) => {
@@ -48,20 +55,29 @@ export const EssayProvider = ({ children }) => {
   };
 
   const likeEssay = async (id) => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/essays/${id}/like`, {
-        method: 'PUT',
-      });
-      if (!response.ok) {
-        const errorDetails = await response.text();
-        throw new Error(`Network response was not ok: ${response.statusText}. Details: ${errorDetails}`);
+    if (!userLikes[id]) {
+      try {
+        const response = await fetch(`${API_BASE_URL}/essays/${id}/like`, {
+          method: 'PUT',
+        });
+        if (!response.ok) {
+          const errorDetails = await response.text();
+          throw new Error(`Network response was not ok: ${response.statusText}. Details: ${errorDetails}`);
+        }
+        const updatedEssay = await response.json();
+        setEssays((prevEssays) =>
+          prevEssays.map((essay) => (essay._id === updatedEssay._id ? updatedEssay : essay))
+        );
+        setUserLikes((prevLikes) => {
+          const newLikes = { ...prevLikes, [id]: true };
+          localStorage.setItem('userLikes', JSON.stringify(newLikes));
+          return newLikes;
+        });
+      } catch (error) {
+        console.error('Error liking essay:', error);
       }
-      const updatedEssay = await response.json();
-      setEssays((prevEssays) =>
-        prevEssays.map((essay) => (essay._id === updatedEssay._id ? updatedEssay : essay))
-      );
-    } catch (error) {
-      console.error('Error liking essay:', error);
+    } else {
+      // Handle unlike logic here if needed
     }
   };
 
