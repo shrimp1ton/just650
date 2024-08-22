@@ -549,8 +549,7 @@ body {
 /* src/styles.css */
 
 /* Profile banner positioned at the top left like a dangling tab */
-/* Profile banner positioned at the top left like a dangling tab */
-/* Default position with 3D pop-out effect */
+/* Profile banner default position */
 .profile-banner {
   position: fixed;
   top: 0;
@@ -565,6 +564,8 @@ body {
   z-index: 1001;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   transform: translateY(0); /* Starting position is popped out */
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
 }
 
 /* On hover, the banner retracts */
@@ -573,8 +574,6 @@ body {
   box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.4);
 }
 
-
-/* Profile Info */
 .profile-info {
   display: flex;
   align-items: center;
@@ -589,7 +588,7 @@ body {
 
 .profile-info span {
   font-size: 14px;
-  color: #fff; /* Changed to white for better contrast */
+  color: #333;
 }
 
 .profile-dropdown {
@@ -602,6 +601,11 @@ body {
   padding: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
+  opacity: 0;
+  transform: translateY(-20px); /* Start hidden above the banner */
+  transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth slide and fade */
+  pointer-events: none; /* Prevent interaction when hidden */
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .profile-dropdown button {
@@ -614,7 +618,16 @@ body {
   cursor: pointer;
   font-size: 14px;
   color: #333;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 200;
 }
+
+.profile-banner:hover .profile-dropdown {
+  opacity: 1;
+  transform: translateY(0); /* Slide down into view */
+  pointer-events: auto; /* Allow interaction when visible */
+}
+
 
 .profile-dropdown button:hover {
   background-color: #f1f1f1;
@@ -622,6 +635,12 @@ body {
 
 .profile-dropdown button:focus {
   outline: none;
+}
+
+.profile-dropdown .divider {
+  height: 1px;
+  background-color: #ddd;
+  margin: 10px 0;
 }
 
 /* Profile Page Styling */

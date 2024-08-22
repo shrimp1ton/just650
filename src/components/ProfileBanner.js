@@ -26,7 +26,7 @@ const ProfileBanner = ({ user }) => {
           alt="Profile"
           className="profile-pic"
         />
-        <span>Hi, {user.displayName || 'User'}</span>
+        <span>{user.displayName || 'User'}</span>
       </div>
       {isDropdownOpen && (
         <div className="profile-dropdown">
