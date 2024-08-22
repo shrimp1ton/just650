@@ -549,6 +549,8 @@ body {
 /* src/styles.css */
 
 /* Profile banner positioned at the top left like a dangling tab */
+/* Profile banner positioned at the top left like a dangling tab */
+/* Default position with 3D pop-out effect */
 .profile-banner {
   position: fixed;
   top: 0;
@@ -558,11 +560,21 @@ body {
   padding: 10px 15px;
   display: flex;
   align-items: center;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
   cursor: pointer;
-  z-index: 1001; /* Ensure it appears above other elements */
+  z-index: 1001;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform: translateY(0); /* Starting position is popped out */
 }
 
+/* On hover, the banner retracts */
+.profile-banner:hover {
+  transform: translateY(-10px); /* Moves up when hovered */
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+
+/* Profile Info */
 .profile-info {
   display: flex;
   align-items: center;
@@ -577,7 +589,7 @@ body {
 
 .profile-info span {
   font-size: 14px;
-  color: #333;
+  color: #fff; /* Changed to white for better contrast */
 }
 
 .profile-dropdown {

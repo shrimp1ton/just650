@@ -31,6 +31,7 @@ const ProfileBanner = ({ user }) => {
       {isDropdownOpen && (
         <div className="profile-dropdown">
           <button onClick={() => navigate('/profile')}>Profile</button>
+          <div class="divider"></div>
           <button onClick={handleLogout}>Log Out</button>
         </div>
       )}

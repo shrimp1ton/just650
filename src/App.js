@@ -11,6 +11,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
 import ProfileBanner from './components/ProfileBanner';
+import AdminPortal from './components/AdminPortal';
 
 function AppContent() {
   const [activeTab, setActiveTab] = useState('submit');
@@ -88,6 +89,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/admin" element={<AdminPortal />} />
           </Routes>
         </Router>
       </EssayProvider>
