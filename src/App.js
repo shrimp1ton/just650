@@ -1,5 +1,5 @@
 // src/App.js
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import LandingPage from './components/LandingPage';
 import SubmitTab from './components/SubmitTab';
@@ -15,22 +15,13 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 
 function AppContent() {
   const [activeTab, setActiveTab] = useState('submit');
-  const [showIntro, setShowIntro] = useState(false); // Start without intro
+  const [showIntro, setShowIntro] = useState(true);
   const [isBlurred, setIsBlurred] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
-  const { user } = useAuth(); // Get user from AuthContext
-  const navigate = useNavigate(); // Hook to programmatically navigate
-
-  useEffect(() => {
-    if (user && window.location.pathname === '/') {
-      // If user is logged in and on the landing page, show the intro
-      setShowIntro(true);
-    }
-  }, [user]);
+  const { user } = useAuth(); // Ensure this is called within AuthProvider
 
   const handleAnimationEnd = () => {
     setShowIntro(false);
-    navigate('/intro'); // Navigate to /intro to show the main content
   };
 
   const handleUserInteraction = () => {
@@ -40,45 +31,44 @@ function AppContent() {
     }
   };
 
+  if (showIntro) {
+    return <Intro onAnimationEnd={handleAnimationEnd} />;
+  }
+
   return (
     <div className="App">
-      {showIntro ? (
-        <Intro onAnimationEnd={handleAnimationEnd} />
-      ) : (
-        <>
-          <header className="header">
-            {user && <ProfileBanner user={user} />}
-            <nav>
-              <button
-                className={`button ${activeTab === 'submit' ? 'active' : ''}`}
-                onClick={() => {
-                  setActiveTab('submit');
-                  handleUserInteraction();
-                }}
-              >
-                SUBMIT
-              </button>
-              <button
-                className={`button ${activeTab === 'read' ? 'active' : ''}`}
-                onClick={() => {
-                  setActiveTab('read');
-                  handleUserInteraction();
-                }}
-              >
-                READ
-              </button>
-            </nav>
-          </header>
-          <div className={`App-content ${isBlurred ? 'blurred' : ''}`}>
-            {activeTab === 'submit' ? (
-              <SubmitTab triggerLogin={handleUserInteraction} />
-            ) : (
-              <ReadTab />
-            )}
-          </div>
-        </>
-      )}
-
+      <>
+        <header className="header">
+          {user && <ProfileBanner user={user} />}
+          <nav>
+            <button
+              className={`button ${activeTab === 'submit' ? 'active' : ''}`}
+              onClick={() => {
+                setActiveTab('submit');
+                handleUserInteraction();
+              }}
+            >
+              SUBMIT
+            </button>
+            <button
+              className={`button ${activeTab === 'read' ? 'active' : ''}`}
+              onClick={() => {
+                setActiveTab('read');
+                handleUserInteraction();
+              }}
+            >
+              READ
+            </button>
+          </nav>
+        </header>
+        <div className={`App-content ${isBlurred ? 'blurred' : ''}`}>
+          {activeTab === 'submit' ? (
+            <SubmitTab triggerLogin={handleUserInteraction} />
+          ) : (
+            <ReadTab />
+          )}
+        </div>
+      </>
       {showLoginPopup && (
         <div className="login-popup">
           <LoginPage />

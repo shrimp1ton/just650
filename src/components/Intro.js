@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-
 const Intro = ({ onAnimationEnd }) => {
 const [text, setText] = useState('');
 const fullText = 'Just 650.';
