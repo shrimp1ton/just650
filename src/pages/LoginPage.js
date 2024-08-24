@@ -1,3 +1,4 @@
+// src/components/LoginPage.js
 import React, { useState } from 'react';
 import { auth, googleProvider } from '../firebase';
 import { signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
@@ -14,7 +15,7 @@ const LoginPage = () => {
   const handleGoogleLogin = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
-      navigate('/'); // Redirect to the main page after successful login
+      navigate('/intro'); // Redirect to the intro page after successful login
     } catch (err) {
       setError('Google Sign-in failed: ' + err.message);
     }
@@ -26,7 +27,7 @@ const LoginPage = () => {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate('/'); // Redirect to the main page after successful login
+      navigate('/intro'); // Redirect to the intro page after successful login
     } catch (err) {
       setError(err.message);
     }
