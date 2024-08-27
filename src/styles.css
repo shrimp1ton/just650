@@ -840,55 +840,45 @@ body {
   align-items: center;
 }
 
-/* src/components/LandingPage.css */
-
+/* src/styles/LandingPage.css */
 .landing-page {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: #f9f9f9;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  overflow: hidden;
 }
 
-.content-container {
-  text-align: center;
-}
-
-.landing-title {
-  font-family: 'Lekton', sans-serif;
+.main-title {
   font-size: 4rem;
-  color: #333;
-  margin-bottom: 20px;
+  color: #ffffff;
+  text-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+  transform: perspective(500px) rotateX(20deg);
 }
 
-.landing-subtitle {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 1.5rem;
-  color: #555;
-  margin-bottom: 40px;
-}
-
-.button-container {
+.buttons {
+  margin-top: 2rem;
   display: flex;
-  gap: 20px;
-  justify-content: center;
+  gap: 1.5rem;
 }
 
 .landing-button {
-  background-color: #1aa924;
-  color: white;
+  padding: 1rem 2rem;
+  font-size: 1.5rem;
+  color: #ffffff;
+  background: #0f2027;
   border: none;
-  padding: 10px 20px;
-  font-size: 1.2rem;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.4);
+  transform: perspective(500px) rotateX(10deg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .landing-button:hover {
-  background-color: #198f1c;
+  transform: perspective(500px) rotateX(0deg) scale(1.1);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.6);
 }
 
-.landing-button:focus {
-  outline: none;
-}
