@@ -849,13 +849,37 @@ body {
   height: 100vh;
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   overflow: hidden;
+  perspective: 1000px; /* Important for 3D flip effect */
 }
+
 
 .main-title {
   font-size: 4rem;
   color: #ffffff;
   text-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
   transform: perspective(500px) rotateX(20deg);
+}
+
+.subtitle {
+  margin-top: 1.5rem;
+  font-size: 30;
+  font-weight: 800;
+  color: #ffdd57;
+  text-shadow: 0px 5px 15px rgba(0, 0, 0, 0.4);
+  transform: perspective(500px) rotateX(60deg);
+  animation: quotePop 1.5s ease-out;
+  font-family: 'Plus Jakarta Sans';
+}
+
+@keyframes quotePop {
+  0% {
+    opacity: 0;
+    transform: perspective(500px) rotateX(40deg) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(500px) rotateX(15deg) scale(1);
+  }
 }
 
 .buttons {
@@ -881,4 +905,3 @@ body {
   transform: perspective(500px) rotateX(0deg) scale(1.1);
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.6);
 }
-
