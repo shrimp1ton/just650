@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useEssays } from '../context/EssayContext';
+import gsap from 'gsap';
+import '../styles.css'; // Import the CSS file
 
 function ReadTab() {
   const { essays, likeEssay } = useEssays();
@@ -10,12 +12,21 @@ function ReadTab() {
   const [userLikes, setUserLikes] = useState({});
 
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+  const essayRefs = useRef([]);
 
   const sortedEssays = [...essays].sort((a, b) =>
     sortBy === 'mostLiked' ? b.likes - a.likes : b.timestamp - a.timestamp
   );
 
   useEffect(() => {
+    gsap.from(essayRefs.current, {
+      opacity: 0,
+      y: 50,
+      stagger: 0.2,
+      duration: 0.5,
+      ease: 'power3.out',
+    });
+
     const fetchReplies = async (essayId) => {
       try {
         const response = await fetch(`${API_BASE_URL}/replies/${essayId}`);
@@ -33,12 +44,11 @@ function ReadTab() {
       fetchReplies(essay._id);
     });
 
-    // Load user likes from localStorage
     const storedLikes = localStorage.getItem('userLikes');
     if (storedLikes) {
       setUserLikes(JSON.parse(storedLikes));
     }
-  }, [essays, API_BASE_URL]);
+  }, [essays, sortBy, API_BASE_URL]);
 
   const handleLike = async (essayId) => {
     if (!userLikes[essayId]) {
@@ -93,38 +103,48 @@ function ReadTab() {
         <option value="mostLiked">Most Liked</option>
         <option value="mostRecent">Most Recent</option>
       </select>
-      {sortedEssays.map((essay) => (
-        <div key={essay._id} style={{ marginBottom: '20px', border: '1px solid #ddd', padding: '10px' }}>
-          <h2 style={{ marginBottom: '10px', fontSize: '24px', fontWeight: 'bold', fontFamily: 'Lekton' }}>
-            {essay.title}
-          </h2>
+      {sortedEssays.map((essay, index) => (
+        <div
+          key={essay._id}
+          className="essay-container"
+          ref={(el) => (essayRefs.current[index] = el)}
+        >
+          <h2 className="essay-title">{essay.title}</h2>
           <p>{essay.content}</p>
           <p>By: {essay.isAnonymous ? 'Anonymous' : essay.authorName}</p>
-          <button onClick={() => handleLike(essay._id)}>
+          <button
+            onClick={() => handleLike(essay._id)}
+            className="like-button"
+          >
             👍 Like ({essay.likes})
           </button>
           <div>
             <h3>Replies</h3>
-            {(replies[essay._id] || []).map((reply) => (
-              <div key={reply._id} style={{ marginTop: '10px', padding: '5px', borderBottom: '1px solid #eee' }}>
-                <p>{reply.content}</p>
-                <p><i>By: {reply.authorName} on {new Date(reply.timestamp).toLocaleString()}</i></p>
-              </div>
-            ))}
+            <div className="replies-container">
+              {(replies[essay._id] || []).map((reply) => (
+                <div key={reply._id} className="reply">
+                  <p>{reply.content}</p>
+                  <p><i>By: {reply.authorName} on {new Date(reply.timestamp).toLocaleString()}</i></p>
+                </div>
+              ))}
+            </div>
             <textarea
               value={newReplyContent[essay._id] || ''}
               onChange={(e) => setNewReplyContent({ ...newReplyContent, [essay._id]: e.target.value })}
               placeholder="Write your reply here"
-              style={{ width: '100%', height: '80px', marginTop: '10px' }}
+              className="reply-input"
             />
             <input
               type="text"
               value={replyAuthor[essay._id] || ''}
               onChange={(e) => setReplyAuthor({ ...replyAuthor, [essay._id]: e.target.value })}
               placeholder="Your Name (optional)"
-              style={{ width: '100%', marginTop: '5px', padding: '5px' }}
+              className="author-input"
             />
-            <button onClick={() => handleReplySubmit(essay._id)} style={{ marginTop: '5px' }}>
+            <button
+              onClick={() => handleReplySubmit(essay._id)}
+              className="reply-submit-button"
+            >
               Submit Reply
             </button>
           </div>

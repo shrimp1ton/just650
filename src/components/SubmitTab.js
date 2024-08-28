@@ -1,24 +1,28 @@
-// src/components/SubmitTab.js
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useEssays } from '../context/EssayContext';
 import { useAuth } from '../context/AuthContext';
 import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
+import { gsap } from 'gsap';
+import '../styles.css';
 
-function SubmitTab({ triggerLogin }) { // Receive triggerLogin as a prop
-  const [title, setTitle] = useState(''); // State for the title
-  const [essay, setEssay] = useState(''); // State for the essay content
-  const [authorName, setAuthorName] = useState(''); // State for the author's name
-  const [userEssays, setUserEssays] = useState([]); // State for storing user's essays
-  const { addEssay } = useEssays(); // Custom hook to access essay context
-  const { user } = useAuth(); // Access the current authenticated user
-
-  // Fetch the API base URL from environment variables
+function SubmitTab({ triggerLogin }) {
+  const [title, setTitle] = useState('');
+  const [essay, setEssay] = useState('');
+  const [authorName, setAuthorName] = useState('');
+  const [userEssays, setUserEssays] = useState([]);
+  const { addEssay } = useEssays();
+  const { user } = useAuth();
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
+  const formRef = useRef(null);
+  const titleInputRef = useRef(null);
+  const essayInputRef = useRef(null);
+  const authorNameInputRef = useRef(null);
+  const submitButtonRef = useRef(null);
+
   useEffect(() => {
-    const fetchUserEssays = async () => {
-      if (user) {
+    if (user) {
+      const fetchUserEssays = async () => {
         const db = getFirestore();
         const essaysRef = collection(db, 'essays');
         const q = query(essaysRef, where('authorId', '==', user.uid));
@@ -30,22 +34,46 @@ function SubmitTab({ triggerLogin }) { // Receive triggerLogin as a prop
         }));
 
         setUserEssays(essays);
-      }
-    };
+      };
 
-    fetchUserEssays();
+      fetchUserEssays();
+    }
+
+    // GSAP Animations
+    gsap.fromTo(
+      formRef.current,
+      { opacity: 0, y: 50 },
+      { opacity: 1, y: 0, duration: 1.5, ease: 'power4.out' }
+    );
+
+    gsap.fromTo(
+      [titleInputRef.current, essayInputRef.current, authorNameInputRef.current],
+      { opacity: 0, y: 50, scale: 0.9 },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 1,
+        ease: 'power4.out',
+        stagger: 0.2,
+      }
+    );
+
+    gsap.fromTo(
+      submitButtonRef.current,
+      { opacity: 0, scale: 0.8 },
+      { opacity: 1, scale: 1, duration: 1, delay: 0.8, ease: 'bounce.out' }
+    );
   }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check if the user is logged in
     if (!user) {
-      triggerLogin(); // Trigger the login/register popup
+      triggerLogin();
       return;
     }
 
-    // Validate input fields
     if (!title.trim()) {
       alert('Title cannot be empty!');
       return;
@@ -57,7 +85,6 @@ function SubmitTab({ triggerLogin }) { // Receive triggerLogin as a prop
     }
 
     try {
-      // Send POST request to submit the essay
       const response = await fetch(`${API_BASE_URL}/essays`, {
         method: 'POST',
         headers: {
@@ -68,24 +95,19 @@ function SubmitTab({ triggerLogin }) { // Receive triggerLogin as a prop
           content: essay.trim(),
           isAnonymous: !authorName.trim(),
           authorName: authorName.trim() || 'Anonymous',
-          authorId: user.uid, // Associate the essay with the current user
+          authorId: user.uid,
         }),
       });
 
-      // Check if the response was successful
       if (!response.ok) {
         throw new Error('Failed to submit essay');
       }
 
       const newEssay = await response.json();
 
-      // Use the addEssay function to update the context
       addEssay(newEssay);
-
-      // Add the new essay to the user's essays
       setUserEssays((prevEssays) => [...prevEssays, newEssay]);
 
-      // Reset form fields after submission
       setTitle('');
       setEssay('');
       setAuthorName('');
@@ -98,19 +120,21 @@ function SubmitTab({ triggerLogin }) { // Receive triggerLogin as a prop
 
   return (
     <div className="submit-page">
-      <form onSubmit={handleSubmit}>
+      <form ref={formRef} onSubmit={handleSubmit}>
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Essay Title"
-          className="title-input" // Optional class for styling
+          className="title-input"
+          ref={titleInputRef}
         />
         <textarea
           value={essay}
           onChange={(e) => setEssay(e.target.value)}
           placeholder="Write your essay here"
-          className="essay-input" // Optional class for styling
+          className="essay-input"
+          ref={essayInputRef}
         />
         <input
           type="text"
@@ -118,13 +142,18 @@ function SubmitTab({ triggerLogin }) { // Receive triggerLogin as a prop
           onChange={(e) => setAuthorName(e.target.value)}
           placeholder="Author Name (Leave blank if you want to remain anonymous)"
           className="author-name-input"
+          ref={authorNameInputRef}
         />
-        <button className="subessay-button" type="submit">
+        <button
+          className="subessay-button"
+          type="submit"
+          ref={submitButtonRef}
+        >
           Submit Essay
         </button>
       </form>
 
-      <div className="grass-design"></div> {/* Grass design container */}
+      <div className="grass-design"></div>
 
       <h2 className="my-essays-header">My Essays</h2>
       <ul>

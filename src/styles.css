@@ -69,16 +69,25 @@ body {
  /* Submit essay button styling */
  .subessay-button {
   background-color: rgb(0, 176, 38);
-  border: 1px solid rgb(248, 227, 227);
+  border: 2px solid rgb(248, 227, 227);
   color: black;
-  padding: 10px; /* Adjust padding as needed */
-  font-size: 16px;
+  padding: 12px; /* Increased padding for a more substantial feel */
+  font-size: 18px; /* Slightly larger font size */
   cursor: pointer;
-  width: 150px;
-  border-radius: 10px;
+  font-weight: 800;
+  width: 160px; /* Slightly wider */
+  border-radius: 12px;
   margin-left: 20px;
   font-family: 'Plus Jakarta Sans', sans-serif;
- }
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition effects */
+}
+
+.subessay-button:hover {
+  transform: scale(1.05); /* Slight scale-up on hover */
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3); /* More pronounced shadow on hover */
+}
+
  
  
  /* Author name input styling */
@@ -134,30 +143,6 @@ body {
  /* Hidden class styling */
  .hidden {
   display: none;
- }
- 
- 
- /* Header typing effect styling */
- #animated-header {
-  border-right: 2px solid #333; /* Creates the blinking cursor */
-  white-space: nowrap;
-  overflow: hidden;
- }
- 
- 
- @keyframes blink {
-  0%, 100% {
-    border-color: transparent;
-  }
-  50% {
-    border-color: #333;
-  }
- }
- 
- 
- #animated-header::after {
-  content: "";
-  animation: blink 0.7s step-end infinite;
  }
  
  
@@ -244,18 +229,6 @@ body {
   opacity: 0;
   pointer-events: none;
  }
- 
- /* src/styles.css */
-.App-content {
-  filter: none;
-  transition: filter 0.3s ease-in-out;
-}
-
-.App-content.blurred {
-  filter: blur(5px);
-}
-
-/* src/styles.css */
 
 /* Profile Section in Header */
 .profile-section {
@@ -542,13 +515,6 @@ body {
   outline: none;
 }
 
-
-/*profile banner */
-
-/* src/styles.css */
-
-/* src/styles.css */
-
 /* Profile banner positioned at the top left like a dangling tab */
 /* Profile banner default position */
 .profile-banner {
@@ -779,68 +745,72 @@ body {
   font-weight: bold;
 }
 
-/* src/styles.css */
-
+/* Login Page */
 .auth-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  padding: 20px;
-  box-sizing: border-box;
+  background-color: #f5f5f5;
 }
 
-.auth-page h2 {
-  margin-bottom: 20px;
-  font-size: 24px;
-  color: #333;
+h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }
 
-.google-button,
-.login-button {
-  background-color: #4285F4;
+.google-button, .login-button {
+  background-color: #4285f4;
   color: white;
   border: none;
-  padding: 10px 15px;
-  margin-bottom: 15px;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
   cursor: pointer;
-  font-size: 16px;
-  width: 100%;
-  max-width: 300px; /* Set a consistent max-width */
-  height: 50px; /* Set a consistent height */
-  border-radius: 4px;
-  text-align: center;
-  transition: background-color 0.3s ease;
+  margin: 0.5rem 0;
 }
 
-.google-button:hover,
-.login-button:hover {
-  background-color: #357ae8;
+.google-button {
+  background-color: #9d3232;
+}
+
+.google-logo {
+  width: 20px; /* Adjust size */
+  height: 20px; /* Adjust size */
+  margin-right: 0.5rem; /* Space between logo and text */
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 300px; /* Ensure form is the same width as the buttons */
+  max-width: 400px;
 }
 
-.login-form input {
-  margin-bottom: 10px;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 4px;
+input[type="email"], input[type="password"] {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
   border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
-.show-password {
-  margin-bottom: 15px;
+label.show-password {
   display: flex;
   align-items: center;
 }
 
-/* src/styles/LandingPage.css */
+label.show-password input {
+  margin-right: 0.5rem;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 1rem;
+}
+
+
+/* Landing Page */
 .landing-page {
   display: flex;
   flex-direction: column;
@@ -905,3 +875,74 @@ body {
   transform: perspective(500px) rotateX(0deg) scale(1.1);
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.6);
 }
+
+/* read tab */
+
+.essay-container {
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.essay-title {
+  margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: 'Lekton', sans-serif;
+}
+
+.like-button {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.like-button:hover {
+  background-color: #45a049;
+}
+
+.replies-container {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.reply {
+  margin-top: 10px;
+  padding: 5px;
+  border-bottom: 1px solid #eee;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+textarea.reply-input,
+input.author-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-top: 5px;
+}
+
+button.reply-submit-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button.reply-submit-button:hover {
+  background-color: #0056b3;
+}
+

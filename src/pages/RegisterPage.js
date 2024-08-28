@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+// src/components/RegisterPage.js
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { auth, googleProvider } from '../firebase';
 import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification, signInWithPopup } from 'firebase/auth';
+import { gsap } from 'gsap';
 import '../styles.css';
 
 const RegisterPage = () => {
@@ -11,6 +14,24 @@ const RegisterPage = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
+  const navigate = useNavigate(); // Initialize navigate
+
+  const googleButtonRef = useRef(null);
+  const formRef = useRef(null);
+
+  // GSAP animations
+  useEffect(() => {
+    gsap.fromTo(
+      googleButtonRef.current,
+      { opacity: 0, y: -50 },
+      { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }
+    );
+    gsap.fromTo(
+      formRef.current,
+      { opacity: 0, y: 50 },
+      { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.5 }
+    );
+  }, []);
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -32,6 +53,9 @@ const RegisterPage = () => {
       await sendEmailVerification(user);
       alert('Registration successful! Please check your email for verification.');
       
+      // Redirect to /intro after registration
+      navigate('/intro');
+      
     } catch (err) {
       setError(err.message);
     }
@@ -41,13 +65,17 @@ const RegisterPage = () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
-      
-      // You can update the user's profile with their name from Google here, if needed
+
+      // Update the user's profile with their name from Google here, if needed
       await updateProfile(user, {
         displayName: user.displayName || firstName,
       });
 
       alert('Registration successful with Google!');
+      
+      // Redirect to /intro after successful Google sign-up
+      navigate('/intro');
+      
     } catch (err) {
       setError(err.message);
     }
@@ -57,11 +85,16 @@ const RegisterPage = () => {
     <div className="auth-page">
       <h2>Register</h2>
       {error && <p className="error-message">{error}</p>}
-      <button onClick={handleGoogleSignUp} className="google-button">
+      <button
+        onClick={handleGoogleSignUp}
+        className="google-button"
+        ref={googleButtonRef}
+      >
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo" className="google-logo" />
         Sign Up with Google
       </button>
       <p>or</p>
-      <form onSubmit={handleRegister}>
+      <form onSubmit={handleRegister} ref={formRef} className="register-form">
         <input
           type="text"
           value={firstName}
@@ -97,7 +130,7 @@ const RegisterPage = () => {
           placeholder="Confirm Password"
           required
         />
-        <label>
+        <label className="show-password">
           <input
             type="checkbox"
             checked={showPassword}
