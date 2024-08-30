@@ -1,6 +1,6 @@
 // src/App.js
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useNavigate, useLocation} from 'react-router-dom';
 import LandingPage from './components/LandingPage';
 import SubmitTab from './components/SubmitTab';
 import ReadTab from './components/ReadTab';
@@ -19,6 +19,7 @@ function AppContent() {
   const [isBlurred, setIsBlurred] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   const { user } = useAuth(); // Ensure this is called within AuthProvider
+  const currentLocation = useLocation(); // Get the current location
 
   const handleAnimationEnd = () => {
     setShowIntro(false);
@@ -37,8 +38,9 @@ function AppContent() {
 
   return (
     <div className="App">
-      <>
+      {currentLocation.pathname !== '/' && (
         <header className="header">
+          <h1> Just 650.</h1>
           {user && <ProfileBanner user={user} />}
           <nav>
             <button
@@ -61,14 +63,14 @@ function AppContent() {
             </button>
           </nav>
         </header>
-        <div className={`App-content ${isBlurred ? 'blurred' : ''}`}>
-          {activeTab === 'submit' ? (
-            <SubmitTab triggerLogin={handleUserInteraction} />
-          ) : (
-            <ReadTab />
-          )}
-        </div>
-      </>
+      )}
+      <div className={`App-content ${isBlurred ? 'blurred' : ''}`}>
+        {activeTab === 'submit' ? (
+          <SubmitTab triggerLogin={handleUserInteraction} />
+        ) : (
+          <ReadTab />
+        )}
+      </div>
       {showLoginPopup && (
         <div className="login-popup">
           <LoginPage />
