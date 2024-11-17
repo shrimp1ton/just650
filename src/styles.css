@@ -817,7 +817,7 @@ label.show-password input {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  background: #ffffff;
   overflow: hidden;
   perspective: 1000px; /* Important for 3D flip effect */
 }
@@ -825,18 +825,19 @@ label.show-password input {
 
 .main-title {
   font-size: 4rem;
-  color: #ffffff;
-  text-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
-  transform: perspective(500px) rotateX(20deg);
+  color: #000000;
+  transform: perspective(500px);
+  position: relative;
+  top: -150px; /* Adjust value as needed */
 }
 
+
+
 .subtitle {
-  margin-top: 1.5rem;
-  font-size: 30;
+  margin-top: .5rem;
+  font-size: 50px;
   font-weight: 800;
-  color: #ffdd57;
-  text-shadow: 0px 5px 15px rgba(0, 0, 0, 0.4);
-  transform: perspective(500px) rotateX(60deg);
+  color: #000000;
   animation: quotePop 1.5s ease-out;
   font-family: 'Plus Jakarta Sans';
 }
@@ -844,11 +845,11 @@ label.show-password input {
 @keyframes quotePop {
   0% {
     opacity: 0;
-    transform: perspective(500px) rotateX(40deg) scale(0.8);
+    transform: perspective(500px)scale(1);
   }
   100% {
     opacity: 1;
-    transform: perspective(500px) rotateX(15deg) scale(1);
+    transform: perspective(500px)scale(1);
   }
 }
 

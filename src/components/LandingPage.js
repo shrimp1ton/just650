@@ -49,7 +49,7 @@ const LandingPage = () => {
     <div ref={pageRef} className="landing-page">
       <h1 ref={titleRef} className="main-title">Just 650.</h1>
       <p ref={subtitleRef} className="subtitle">
-        Empowering students to perfect their personal statements with community feedback—one draft at a time.
+        Share your story, with Just650.
       </p>
       <div className="buttons">
         <button
