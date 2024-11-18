@@ -1,7 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
+import { TextPlugin } from 'gsap/TextPlugin';
 import '../styles.css';
+
+// Register the TextPlugin
+gsap.registerPlugin(TextPlugin);
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -18,12 +22,12 @@ const LandingPage = () => {
       { opacity: 1, y: 0, scale: 1, duration: 1.5, ease: 'power4.out' }
     );
 
-    // Subtitle animation
-    gsap.fromTo(
-      subtitleRef.current,
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 1.5, delay: 0.5, ease: 'power4.out' }
-    );
+    // Subtitle typing animation
+    gsap.to(subtitleRef.current, {
+      text: "Share your story, with Just650.",
+      duration: 3,
+      ease: "power1.inOut",
+    });
 
     // Button animations
     buttonRefs.current.forEach((btn, index) => {
@@ -48,9 +52,7 @@ const LandingPage = () => {
   return (
     <div ref={pageRef} className="landing-page">
       <h1 ref={titleRef} className="main-title">Just 650.</h1>
-      <p ref={subtitleRef} className="subtitle">
-        Share your story, with Just650.
-      </p>
+      <p ref={subtitleRef} className="subtitle"></p> {/* Empty initially for typing effect */}
       <div className="buttons">
         <button
           ref={(el) => (buttonRefs.current[0] = el)}
